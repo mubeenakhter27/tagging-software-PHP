@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta charset="utf-8">
+    <title>fabricjs Test 3</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="fabric.min.js"></script>
+    <script>
+     var json = '[{"id":"1","tagName":"apple"},{"id":"2","tagName":"orange"}]';
+
+$.each($.parseJSON(json), function(idx, obj) {
+	alert(obj.tagName);
+
+});
+    </script>
+</head>
+
+<body>
+    <button id="rect">Rect</button>
+    <button id="save">Save</button>
+    <canvas id="c" width="1920" height="1080"></canvas>
+    <button onclick="nxt()" id="btnOne">next</button>
+    <button onclick="prvs()" id="btnTwo">previous</button>
+    <button>Reload</button>
+    <p class="save">
+        <script>
+
+    
+
+
+
+
+            var canvas = new fabric.Canvas('c');
+            canvas.setBackgroundImage('Frames/1146.jpg', canvas.renderAll.bind(canvas));
+            var canvasXvalue = 689;
+            var canvasYvalue = 99;
+            var canvasWidth = 57;
+            var canvasHeight = 161;
+            var finalCanvasXvalue = finalCanvasYvalue = finalCanvasWidth = finalCanvasHeight = 0;
+
+
+            var img = new Array("1.jpeg", "2.jpeg", "3.jpeg");
+
+            var imgElement = document.getElementById("imgDemo");
+            var i = 0;
+            var imgLen = img.length;
+
+            function nxt() {
+                if (i < imgLen - 1) {
+                    i++;
+                } else {
+                    i = 0;
+                }
+
+                canvas.setBackgroundImage(img[i], canvas.renderAll.bind(canvas));
+            }
+
+            function prvs() {
+                if (i > 0) {
+                    i--;
+                } else {
+                    i = imgLen - 1;
+                }
+                canvas.setBackgroundImage(img[i], canvas.renderAll.bind(canvas));
+            }
+
+
+            //Function to genrate random color for canvas 
+            function getRndColor() {
+                var r = 255 * Math.random() | 0,
+                    g = 255 * Math.random() | 0,
+                    b = 255 * Math.random() | 0;
+                return 'rgb(' + r + ',' + g + ',' + b + ')';
+            }
+
+
+            //OnClick add rectagle on image 
+            $("#rect").on("click", function(e) {
+                rect = new fabric.Rect({
+                    left: canvasXvalue,
+                    top: canvasYvalue,
+                    width: canvasWidth,
+                    height: canvasHeight,
+                    fill: 'transparent',
+                    stroke: getRndColor(),
+                    strokeWidth: 3,
+                });
+                canvas.add(rect);
+                // console.log(canvas.getObjects());
+            });
+
+
+
+
+            // rect variable for set reactangle value 
+            rect = new fabric.Rect({
+                left: canvasXvalue,
+                top: canvasYvalue,
+                width: canvasWidth,
+                height: canvasHeight,
+                fill: 'transparent',
+                stroke: getRndColor(),
+                strokeWidth: 3,
+            });
+
+            // function load() {
+
+            // }
+
+            function objectAddedListener(ev) {
+                let target = ev.target;
+                console.log('left', target.left, 'top', target.top, 'width', target.width, 'height', target.height);
+            }
+
+            function objectMovedListener(ev) {
+                let target = ev.target;
+                finalCanvasXvalue = target.left;
+                finalCanvasYvalue = target.top;
+                finalCanvasWidth = target.width * target.scaleX;
+                finalCanvasHeight = target.height * target.scaleY;
+                console.log('left', finalCanvasXvalue, 'top', finalCanvasYvalue, 'width', finalCanvasWidth, 'height', finalCanvasHeight);
+            }
+
+            canvas.on('object:added', objectAddedListener);
+            canvas.on('object:modified', objectMovedListener);
+
+            canvas.add(rect);
+
+            //Final image and csv save
+            $("#save").on("click", function(e) {
+                $(".save").html(canvas.toSVG());
+                //   consol.log('hello world');
+                console.log(canvas.getObjects());
+                // console.log(canvas.toSVG());
+                canvas.forEachObject(function(obj) {
+                    console.log(obj.left);
+                    console.log(obj.top);
+                    console.log(obj.width * obj.scaleX);
+                    console.log(obj.height * obj.scaleY);
+
+                });
+            });
+
+          
+
+            // const button = document.querySelector('button');
+            // load();
+            // button.addEventListener('click', load);
+        </script>
+</body>
+
+</html>

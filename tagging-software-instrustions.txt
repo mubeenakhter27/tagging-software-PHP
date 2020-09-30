@@ -1,0 +1,25 @@
+E:\xampp\htdocs\www\tagging-software
+fist copy and past csv in csv folder change the name of csv file to 'newcsv'
+2nd video past in videos folder
+3rd past video name in test.py
+4th delete frames
+
+run test.py through comment propet 
+commend :
+1 : E:
+2 : cd xampp/htdocs/www/tagging-software
+   or
+2 : cd xampp/htdocs/www/tagging-software-cars
+3 : python test.py
+
+First time run file :
+localhost/www/tagging-software
+1 - first delete old project 2 - Create Project 3 - import csv 
+ 
+main page link :
+http://localhost/www/tagging-software/main.php
+http://localhost/www/tagging-software-cars/main.php
+
+03238863200
+Mubeen Akhter
+mubeen.akhter.100@gmail.com
